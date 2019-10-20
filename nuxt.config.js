@@ -1,5 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
 
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+    router: {
+        base: '/QuickNotes/'
+    }
+} : {}
+
 export default {
     mode: 'spa',
     /*
@@ -68,7 +74,8 @@ export default {
          ** You can extend webpack config here
          */
         extend(config, ctx) {
-            config.output.publicPath = '_nuxt/'
+            // config.output.publicPath = '_nuxt/'
         },
-    }
+    },
+    ...routerBase
 }
