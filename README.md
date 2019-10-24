@@ -1,6 +1,8 @@
 # QuickNotes
 
-> Creating fast and easy markdown notes
+> Creating fast and easy markdown notes locally in your browser.
+
+Try it out: https://milchreis.github.io/QuickNotes/
 
 ## Build Setup
 
