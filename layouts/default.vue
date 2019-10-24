@@ -77,6 +77,11 @@ export default {
           icon: "mdi-file-document-box-multiple",
           title: "Notes",
           to: "/notes"
+        },
+        {
+          icon: "mdi-swap-vertical-bold",
+          title: "Import/Export",
+          to: "/exchange"
         }
       ],
       latestNotes: [],
