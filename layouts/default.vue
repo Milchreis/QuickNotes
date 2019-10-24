@@ -4,17 +4,13 @@
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
+      @transitionend="drawerToggle"
       fixed
       app
     >
+      <!-- List with functions -->
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -23,12 +19,34 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <v-divider></v-divider>
+
+      <!-- List with latest notes -->
+      <v-list>
+        <v-list-item v-show="latestNotes.length > 0">
+          <v-list-item-content>Latest Notes</v-list-item-content>
+        </v-list-item>
+
+        <v-list-item
+          v-show="latestNotes.length > 0"
+          v-for="(item, i) in latestNotes"
+          :key="i"
+          :to="'/note/' + item.id"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>mdi-file-document-box-outline</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
+
+    <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-icon>mdi-notebook</v-icon>
       <v-toolbar-title v-text="title" />
@@ -44,30 +62,47 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'New note',
-          to: '/'
+          icon: "mdi-file-plus",
+          title: "New note",
+          to: "/"
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Notes',
-          to: '/notes'
+          icon: "mdi-file-document-box-multiple",
+          title: "Notes",
+          to: "/notes"
         }
       ],
+      latestNotes: [],
+      latestNotesMax: 5,
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'QuickNotes'
+      title: "QuickNotes"
+    };
+  },
+  mounted() {},
+  methods: {
+    drawerToggle(event) {
+      this.loadLatestNotes();
+    },
+
+    loadLatestNotes() {
+      let quicknote = JSON.parse(localStorage.getItem("quicknote"));
+      if (!quicknote && !quicknote.notes) return;
+
+      this.latestNotes = quicknote.notes
+        .sort((a, b) => new Date(b.updated) - new Date(a.updated))
+        .splice(0, this.latestNotesMax);
     }
   }
-}
+};
 </script>
 
 <style>
