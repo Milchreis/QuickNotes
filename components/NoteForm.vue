@@ -2,7 +2,10 @@
   <v-layout>
     <v-flex>
       <v-text-field label="Title" v-model="item.title" placeholder="Placeholder" outlined></v-text-field>
-      <simplemde v-model="item.note"></simplemde>
+
+      <simplemde v-model="item.note"
+        v-shortkey="['ctrl', 's']" @shortkey.native="saveNote()"></simplemde>
+
       <v-btn depressed medium color="primary" @click="saveNote()">Save</v-btn>
       <v-btn depressed medium color="error" @click="deleteNote()" v-show="itemId">Delete</v-btn>
     </v-flex>
@@ -60,6 +63,8 @@ export default {
       localStorage.setItem("quicknote", JSON.stringify(quicknote));
       this.snackbar.visible = true;
       this.snackbar.text = "Note saved";
+
+      setTimeout(() => this.snackbar.visible = false, 1500);
     },
 
     deleteNote() {
