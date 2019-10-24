@@ -1,15 +1,16 @@
 <template>
-  <v-layout>
-    <v-flex xs12 sm8 md10>
+  <v-layout justify-center align-center>
+    <v-flex xs12 sm12 md8 lg8>
       <v-list two-line v-show="items.length > 0">
         <v-list-item v-for="item in items" :key="item.id" :to="'/note/' + item.id" nuxt>
             <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
-              <v-list-item-subtitle
-                v-text="`Created ${formatRelativeTime(item.created)} - Updated: ${formatRelativeTime(item.updated)}`"
-              ></v-list-item-subtitle>
-              <v-list-item-subtitle v-show="item.note" v-text="item.note.substr(0, 100) + ' ...'"></v-list-item-subtitle>
-              <v-divider></v-divider>
+              <v-list-item-title>{{item.title}}</v-list-item-title>
+              <v-list-item-subtitle class="timeData">
+              {{ `Created ${formatRelativeTime(item.created)}` }}
+              <br />
+              {{ `Updated: ${formatRelativeTime(item.updated)}` }}
+              </v-list-item-subtitle>
+              <pre class="previewText">{{ item.note.substr(0, 100) + ' ...' }}</pre>
             </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -79,3 +80,27 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.v-list-item__title {
+  font-size: 2.0em;
+}
+
+.previewText {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+
+  color: #e8e8e8;
+  background-color: #4e4e4e;
+  padding: 0.5em;
+  border-radius: 3px;
+}
+
+.timeData {
+  /* float: right; */
+  display: inline-block;
+  margin-top: -2.8em;
+  text-align: right;
+  font-size: 0.8em;
+}
+</style>
