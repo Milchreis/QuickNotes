@@ -2,6 +2,8 @@
 
 > Creating fast and easy markdown notes locally in your browser.
 
+![alt screenshot](https://github.com/Milchreis/QuickNotes/blob/master/screenshots/screenshot1.JPG?raw=true)
+
 Try it out: https://milchreis.github.io/QuickNotes/
 
 ## Build Setup
