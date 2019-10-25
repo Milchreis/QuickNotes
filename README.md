@@ -11,7 +11,7 @@ Try it out: https://milchreis.github.io/QuickNotes/
  * `CTRL` + `h`  Headline
  * `CTRL` + `b`  Bold
  * `CTRL` + `i`  Italic
- * `CTRL` + ```  Quote
+ * `CTRL` + `'`  Quote
  * `CTRL` + `l`  Toggle list
  * `CTRL` + `ALT` + `l` Toggle numbered list
  * `CTRL` + `k`  Link
