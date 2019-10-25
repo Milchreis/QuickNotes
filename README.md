@@ -6,6 +6,18 @@
 
 Try it out: https://milchreis.github.io/QuickNotes/
 
+## Short cuts
+ * `CTRL` + `s`  Save
+ * `CTRL` + `h`  Headline
+ * `CTRL` + `b`  Bold
+ * `CTRL` + `i`  Italic
+ * `CTRL` + ```  Quote
+ * `CTRL` + `l`  Toggle list
+ * `CTRL` + `ALT` + `l` Toggle numbered list
+ * `CTRL` + `k`  Link
+ * `CTRL` + `ALT` + `i` Image
+ * `CTRL` + `P`  Show preview
+
 ## Build Setup
 
 ``` bash
