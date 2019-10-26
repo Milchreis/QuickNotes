@@ -62,15 +62,15 @@ export default {
         unit = "minute";
       }
       if (Math.abs(delta) > hour) {
-        deltaInUnit = deltaInUnit / hour;
+        deltaInUnit = delta / hour;
         unit = "hour";
       }
       if (Math.abs(delta) > day) {
-        deltaInUnit = deltaInUnit / day;
+        deltaInUnit = delta / day;
         unit = "day";
       }
       if (Math.abs(delta) > day * 400) {
-        deltaInUnit = deltaInUnit / 365;
+        deltaInUnit = delta / 365;
         unit = "year";
       }
       return new Intl.RelativeTimeFormat("en", {
