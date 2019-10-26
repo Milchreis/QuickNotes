@@ -46,7 +46,9 @@ export default {
     /*
      ** Nuxt.js modules
      */
-    modules: [],
+    modules: [
+        '~/modules/NoteUtils'
+    ],
     /*
      ** vuetify module configuration
      ** https://github.com/nuxt-community/vuetify-module

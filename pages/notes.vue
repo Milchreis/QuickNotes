@@ -22,6 +22,7 @@
 
 <script>
 import SimpleMDE from "@/components/SimpleMDE";
+import NoteUtils from "@/modules/NoteUtils";
 
 export default {
   components: {
@@ -29,13 +30,13 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: [],
+      noteUtils: new NoteUtils(),
     };
   },
 
   mounted() {
-    let quicknote = JSON.parse(localStorage.getItem("quicknote"));
-    if (quicknote && quicknote.notes) this.items = quicknote.notes;
+    this.items = this.noteUtils.loadNotes();
   },
 
   methods: {

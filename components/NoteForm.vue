@@ -11,14 +11,23 @@
       ></simplemde>
 
       <!-- Bad hack, but in that way vue-shortkey uses multiple shortcuts -->
-      <simplemde
-        v-show="false"
-        v-shortkey="['ctrl', 'alt', 'p']" @shortkey.native="printNote()"
-      ></simplemde>
+      <simplemde v-show="false" v-shortkey="['ctrl', 'alt', 'p']" @shortkey.native="printNote()"></simplemde>
 
-      <v-btn depressed medium color="primary" @click="saveNote()">Save</v-btn>
-      <v-btn depressed medium color="error" @click="deleteNote()" v-show="itemId">Delete</v-btn>
-      <v-btn depressed medium color="green" @click="printNote()" v-show="itemId">Print</v-btn>
+      <v-layout>
+        <v-flex>
+          <v-btn depressed medium color="primary" @click="saveNote()">Save</v-btn>
+          <v-btn depressed medium color="green" @click="printNote()" v-show="itemId">Print</v-btn>
+        </v-flex>
+
+        <v-btn depressed medium color="error" @click="deleteNote()" v-show="itemId">Delete</v-btn>
+        <v-btn
+          depressed
+          medium
+          color="primary"
+          :to="'/note/' + item.parentId"
+          v-show="item.parentId"
+        >Original Note</v-btn>
+      </v-layout>
     </v-flex>
 
     <v-snackbar v-model="snackbar.visible" top>
@@ -31,6 +40,7 @@
 
 <script>
 import SimpleMDE from "@/components/SimpleMDE";
+import NoteUtils from "@/modules/NoteUtils";
 import printJS from "print-js";
 
 export default {
@@ -41,12 +51,13 @@ export default {
   data() {
     return {
       item: {
-        id: this.createUUID(),
+        id: new NoteUtils().createUUID(),
         title: "",
         note: "",
         created: new Date(),
         updated: null
       },
+      noteUtils: new NoteUtils(),
       snackbar: {
         visible: false,
         text: ""
@@ -56,23 +67,14 @@ export default {
 
   async mounted() {
     if (this.itemId) {
-      let quicknote = JSON.parse(localStorage.getItem("quicknote"));
-      this.item = quicknote.notes.find(note => note.id === this.itemId);
+      let notes = this.noteUtils.loadNotes();
+      this.item = notes.find(note => note.id === this.itemId);
     }
   },
 
   methods: {
     saveNote() {
-      let quicknote = this.loadNotes();
-
-      quicknote.notes = quicknote.notes.filter(
-        note => note.id !== this.item.id
-      );
-
-      this.item.updated = new Date();
-      quicknote.notes.push(this.item);
-
-      localStorage.setItem("quicknote", JSON.stringify(quicknote));
+      this.noteUtils.saveNote(this.item);
       this.snackbar.visible = true;
       this.snackbar.text = "Note saved";
 
@@ -80,11 +82,7 @@ export default {
     },
 
     deleteNote() {
-      let quicknote = this.loadNotes();
-      quicknote.notes = quicknote.notes.filter(
-        note => note.id !== this.item.id
-      );
-      localStorage.setItem("quicknote", JSON.stringify(quicknote));
+      this.noteUtils.deleteNote(this.item);
       this.snackbar.visible = true;
       this.snackbar.text = "Note deleted";
     },
@@ -111,22 +109,13 @@ export default {
     },
 
     loadNotes() {
-      let quicknote = JSON.parse(localStorage.getItem("quicknote"));
+      let quicknote = this.noteUtils.loadNotes();
       if (!quicknote) {
         quicknote = {
           notes: []
         };
       }
       return quicknote;
-    },
-
-    createUUID() {
-      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
-        let dt = new Date().getTime();
-        let r = (dt + Math.random() * 16) % 16 | 0;
-        dt = Math.floor(dt / 16);
-        return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-      });
     }
   }
 };

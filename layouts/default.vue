@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import NoteUtils from "@/modules/NoteUtils";
+
 export default {
   data() {
     return {
@@ -89,7 +91,8 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "QuickNotes"
+      title: "QuickNotes",
+      noteUtils: new NoteUtils()
     };
   },
   mounted() {},
@@ -99,10 +102,10 @@ export default {
     },
 
     loadLatestNotes() {
-      let quicknote = JSON.parse(localStorage.getItem("quicknote"));
-      if (!quicknote && !quicknote.notes) return;
+      let notes = this.noteUtils.loadNotes();
+      if (!notes) return;
 
-      this.latestNotes = quicknote.notes
+      this.latestNotes = notes
         .sort((a, b) => new Date(b.updated) - new Date(a.updated))
         .splice(0, this.latestNotesMax);
     }
