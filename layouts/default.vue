@@ -68,7 +68,6 @@ export default {
     return {
       clipped: false,
       drawer: false,
-      fixed: false,
       items: [
         {
           icon: "mdi-file-plus",
@@ -88,9 +87,6 @@ export default {
       ],
       latestNotes: [],
       latestNotesMax: 5,
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
       title: "QuickNotes",
       noteUtils: new NoteUtils()
     };
