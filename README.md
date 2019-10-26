@@ -6,6 +6,14 @@
 
 Try it out: https://milchreis.github.io/QuickNotes/
 
+## Features
+ * markdown editor without installation
+ * multiple notes in one application
+ * import and export for all notes (json format)
+ * simple PDF export
+ * a lot of shortcuts
+ * no cloud services
+
 ## Short cuts
  * `CTRL` + `s`  Save
  * `CTRL` + `h`  Headline
