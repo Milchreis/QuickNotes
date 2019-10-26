@@ -17,6 +17,7 @@ Try it out: https://milchreis.github.io/QuickNotes/
  * `CTRL` + `k`  Link
  * `CTRL` + `ALT` + `i` Image
  * `CTRL` + `P`  Show preview
+ * `CTRL` + `ALT` + `P`  Print preview
 
 ## Build Setup
 
@@ -38,3 +39,12 @@ $ npm run generate
 $ npm run generate:gh-pages
 $ npm run deploy
 ```
+
+## Used libraries
+Special thanks go to the great open source libraries I was able to use so easily in this project.
+
+ * NuxtJS
+ * Vuetify
+ * Simple-markdown-editor
+ * PrintJS
+ * vue-shortkeys
