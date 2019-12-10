@@ -104,7 +104,10 @@ export default {
       this.$refs.mde.togglePreview();
       await this.timeout(500);
       this.findPreviewElementAndSetId();
-      await printJS("editor-preview", "html");
+      await printJS({
+        printable: "editor-preview",
+        type: "html",
+      });
       this.$refs.mde.togglePreview();
     },
 
@@ -120,3 +123,6 @@ export default {
   }
 };
 </script>
+
+<style>
+</style>
